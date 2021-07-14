@@ -24,12 +24,13 @@
 <br>
 
 ### 스토리보드를 활용한 화면구성
-  > NOTE
-  > Project로 개발진행시, storyboard 에서 View as : 와 상단 기기정보를 일치시켜야 한다!
-  > Error : Select a development team in the Signing... 이 뜬다. 
 
  `cmd + shift + L`  Object 가져오기
  `cmd + K` 시뮬레이터에서 키보드 꺼내기
+ 
+  >NOTE
+  > Project로 개발진행시, storyboard 에서 View as : 와 상단 기기정보를 일치시켜야 한다!
+  > Error : Select a development team in the Signing... 이 뜬다. 
 
 Editor 에서 마우스 오른쪽으로 클릭해서 드래그 해 가져온다. 이때 주의해야 할 점은, IBOutlet으로 끌고 온 것을 이름을 바꾸어버리면 앱 충돌이 일어나게 된다! 그리고 실수로 두번 드래그 해서 가져오게 되면 에러코드가 없이 앱이 종료되어버린다.
 이때 확인해줘야 할 것은 Referencing Outlets 가 두개가 아닌지 확인!
@@ -47,9 +48,16 @@ Editor 에서 마우스 오른쪽으로 클릭해서 드래그 해 가져온다.
 
 `IBOutlet` Interface Builder
 
+<br>
 
-
-
+### 상수와 변수의 작명규칙
+* Camel Case : function, method, variable, constant
+  + ex) studentName, studentAge ...
+* Pascal Case : class, struct, enum, extension, ...
+  + ex) Student, Product
+* Snake Case : underbar로 연결하여 사용 (Android 에선 👍 Swift 에선 👎)
+* 대소문자 구분
+* 첫글자를 숫자나 특수문자로 시작하면 안되나, underbar(_)로 시작이 가능하다. (특수용도)
 
 
 
