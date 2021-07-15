@@ -59,8 +59,56 @@ Editor 에서 마우스 오른쪽으로 클릭해서 드래그 해 가져온다.
 * 대소문자 구분
 * 첫글자를 숫자나 특수문자로 시작하면 안되나, underbar(_)로 시작이 가능하다. (특수용도)
 
+<br>
+
+## Day 02
+
+>### Lecture
+
+<br>
+
+### 비교 연산
+
+### 범위 연산자
+
+### Optional
 
 
+<br>
+
+>### Tips
+
+### Keyboard 내리기
+```swift
+ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+ }
+```
 
 
+### 공백 체크
+
+`.trimmingCharacters(in: .whitespacesAndNewlines)` 공백과 Enter키를 다 trim 해준다.
+```swift
+func checkNil(str: String!) -> Int{
+        let check = str.trimmingCharacters(in: .whitespacesAndNewlines)
+        if check.isEmpty{
+            return 0
+        }else{
+            return 1
+        }
+    }
+```
+
+### becomeFirstResponder()
+
+<br>
+
+### 무한반복 만들기
+
+<br>
+
+### Image 띄우기
+
+<br>
 
