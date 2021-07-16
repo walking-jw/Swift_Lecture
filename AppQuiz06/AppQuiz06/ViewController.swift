@@ -21,27 +21,31 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        lblTitle.text = imageName[numImage]
-        imgView.image = UIImage(named: imageName[numImage])
+        displayImage(numImage: numImage)
         
-    }
+    } // viewDidLoad
 
     @IBAction func btnPrev(_ sender: UIButton) {
         numImage -= 1
         if numImage <= -1 {
             numImage = imageName.count - 1
         }
-        imgView.image = UIImage(named: imageName[numImage])
-    }
+        displayImage(numImage: numImage)
+    } // btnPrev
     
     @IBAction func btnNext(_ sender: UIButton) {
         numImage += 1
         if numImage == imageName.count {
             numImage = 0
         }
-        imgView.image = UIImage(named: imageName[numImage])
-    }
+        displayImage(numImage: numImage)
+    } // btnNext
     
+    func displayImage(numImage: Int){
+        lblTitle.text = imageName[numImage]
+        imgView.image = UIImage(named: imageName[numImage])
+        
+    } // displayImage
     
     
 } //ViewController
