@@ -112,3 +112,62 @@ func checkNil(str: String!) -> Int{
 
 <br>
 
+## Day 03 
+
+>### Lecture
+
+<br>
+
+### Dictionary
+Dictionary는 Key와 Value로 구성되어 있다. 
+표준타입은 var scoreDictionary: Dictionary<String, Int> = [String: Int]() 형태이나 아래와 같이 많이 사용한다.
+var scoreDictionary: [String: Int] = [:]
+여기서 [:], : 만 빠지면 Array와 같다! 
+
+Dictionary는 순서가 없다. 순서가 있는 것은 배열뿐이다! 만약 순서를 주려면 key값을 번호로 주어야한다.
+
+#### 초기값을 가지는 Dictionary
+let 으로 선언해주었기 때문에 수정이 불가능하다
+let initializedDictionary: [String: String] = ["name":"James", "gender":"male"]
+
+
+<br>
+
+
+### Set
+
+Set 은 집합연산에 사용되고, 중복데이터를 적용하지 않는다.
+
+let oddDigits2: Set = [1, 3, 3, 5, 5, 6, 9, 9, 9, 9]
+print(oddDigits2)  // [5, 1, 9, 6, 3]
+
+Set도 역시 순서가 정리되어 있지 않다. 순서대로 사용하고 싶을 때는 .sorted() 를 사용한다.
+
+print(oddDigits2.sorted())
+
+* 합집합 : oddDigits.union(evenDigits).sorted()
+* 교집합 : oddDigits.intersection(evenDigits).sorted()
+* 차집합 : oddDigits.subtracting(singleDigitPrimeNumbers).sorted()  
+* 부분집합 : houseAnimals.isSubset(of: farmAnimals)  // true
+* 모집합 : farmAnimals.isSuperset(of: houseAnimals)  // true
+
+farmAnimals.isDisjoint(with: cityAnimals)
+아예 중복되어 있는게 없을때 true값 반환한다. 만약 겹치는 데이터가 있을 경우에는 false를 반환한다.
+
+개발할때는 많이 사용하지는 않으나, 중복데이터를 찾는 등의 Data Cleaning 할때 사용한다.
+
+   <br><br>
+
+>### Tips
+여기서 (,)는 and와 같다. 두 조건 모두 해당해야 if를 실행하고, 하나라도 맞지 않으면 else로 간다.
+if '조건1', '조건2'{
+
+}else{
+}
+
+   <br><br>
+
+>### Quiz
+
+* [Quiz07]() : 짝수인 경우에만 덧셈 계산하기
+
