@@ -115,7 +115,6 @@ func checkNil(str: String!) -> Int{
 ## Day 03 
 
 >### Lecture
-
 <br>
 
 ### Dictionary
@@ -136,38 +135,95 @@ let initializedDictionary: [String: String] = ["name":"James", "gender":"male"]
 
 ### Set
 
-Set 은 집합연산에 사용되고, 중복데이터를 적용하지 않는다.
-
+Set 은 집합연산에 사용되고, **중복데이터를 적용하지 않는다.**
+```swift
 let oddDigits2: Set = [1, 3, 3, 5, 5, 6, 9, 9, 9, 9]
 print(oddDigits2)  // [5, 1, 9, 6, 3]
+```
+Set도 역시 순서가 정리되어 있지 않다. 순서대로 사용하고 싶을 때는 `.sorted()` 를 사용한다.
 
-Set도 역시 순서가 정리되어 있지 않다. 순서대로 사용하고 싶을 때는 .sorted() 를 사용한다.
+`print(oddDigits2.sorted())`
 
-print(oddDigits2.sorted())
+* 합집합 : `oddDigits.union(evenDigits).sorted()`
+* 교집합 : `oddDigits.intersection(evenDigits).sorted()`
+* 차집합 : `oddDigits.subtracting(singleDigitPrimeNumbers).sorted()`
+* 부분집합 : `houseAnimals.isSubset(of: farmAnimals)` : true
+* 확대집합 : `farmAnimals.isSuperset(of: houseAnimals)` : true
 
-* 합집합 : oddDigits.union(evenDigits).sorted()
-* 교집합 : oddDigits.intersection(evenDigits).sorted()
-* 차집합 : oddDigits.subtracting(singleDigitPrimeNumbers).sorted()  
-* 부분집합 : houseAnimals.isSubset(of: farmAnimals)  // true
-* 모집합 : farmAnimals.isSuperset(of: houseAnimals)  // true
-
-farmAnimals.isDisjoint(with: cityAnimals)
-아예 중복되어 있는게 없을때 true값 반환한다. 만약 겹치는 데이터가 있을 경우에는 false를 반환한다.
+#### 데이터 중복 확인
+`farmAnimals.isDisjoint(with: cityAnimals)` <p>
+아예 중복되어 있는게 없을때 `true`값으로 반환한다. 만약 겹치는 데이터가 있을 경우에는 `false`를 반환한다.
 
 개발할때는 많이 사용하지는 않으나, 중복데이터를 찾는 등의 Data Cleaning 할때 사용한다.
 
+ <br>
+ 
+### switch
+#### 1. 범위 지정 switch 문
+ 
+ 
+#### 2. 특정조건 + 범위지정 switch 문
+ ```swift
+  let someInteger = 12345
+
+  switch someInteger{
+  case 0:
+      print("zero")
+  case 1..<100:
+      print("1~99")
+  case 101...Int.max:
+      print("over 100")
+  default:
+      print("unknown")
+  }
+ ```
+ 
+#### 3. 조건 여러개일때도 사용
+ ```swift
+ let aCharacter: Character = "a"
+
+ switch aCharacter{
+ case "a", "A":
+     print("The letter A")
+ default:
+     print("Not the letter A")
+}
+```
+ 사용자가 대문자와 소문자를 잘못 입력해줬을 경우, 해당 조건으로 대소문자 모두 인식이 가능한 코딩이 가능하다.
+ <br>
+ 
+### 삼항연산자 활용
+ 삼항 연산자를 연속적으로 활용하여 switch 대용으로 사용도 가능하다. 
+```swift
+ let point:Int = 70
+
+ grade = point >= 90 ? "A" :
+         point >= 80 ? "B" :
+         point >= 70 ? "C" :
+         point >= 60 ? "D" : "F"
+```
+ 
+ 
    <br><br>
 
 >### Tips
-여기서 (,)는 and와 같다. 두 조건 모두 해당해야 if를 실행하고, 하나라도 맞지 않으면 else로 간다.
+여기서 (,)는 and와 같다. 두 조건 모두 해당해야 if를 실행하고, 하나라도 맞지 않으면 else로 간다.<p>
 if '조건1', '조건2'{
 
 }else{
 }
 
+ #### format 변환
+ ```swift
+ String(format:"%.2f", <변환하고자 하는 값>)
+ ```
    <br><br>
+ 
+ 
 
 >### Quiz
 
-* [Quiz07]() : 짝수인 경우에만 덧셈 계산하기
-
+* [Quiz07](https://github.com/walking-jw/Swift_Lecture/blob/main/AppQuiz07/AppQuiz07/ViewController.swift)  :  짝수인 경우에만 덧셈 계산하기
+* [Quiz08](https://github.com/walking-jw/Swift_Lecture/blob/main/AppQuiz08/AppQuiz08/ViewController.swift)  :  평균점수 등급 계산하기
+* [Quiz09](https://github.com/walking-jw/Swift_Lecture/blob/main/AppQuiz09/AppQuiz09/ViewController.swift)  :  평균점수, 총점, 평균대비 구하기(한페이지에)
+ 
