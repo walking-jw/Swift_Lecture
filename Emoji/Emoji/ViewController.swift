@@ -25,10 +25,7 @@ class ViewController: UIViewController {
         if index == arrEmoji.count {
             index = 0
         }
-        
         lblEmoji.text = arrEmoji[index]
-        
-        
     }
     
     @IBAction func btnBack(_ sender: UIButton) {

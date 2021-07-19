@@ -264,7 +264,7 @@ while startIndex <= endIndex {
     startIndex += 1
 }
 
-print(sum)
+print(sum) // 5050
 
 var startIndex2 = 0
 var endIndex2 = 100
