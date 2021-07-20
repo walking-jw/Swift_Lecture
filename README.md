@@ -451,5 +451,125 @@ switch object 의 기본적인 구조는 아래와 같다. `sender.isOn`을 기�
 >## Quiz
 
 * [Quiz12](https://github.com/walking-jw/Swift_Lecture/blob/main/AppQuiz12/AppQuiz12/ViewController.swift)  :   switch object  전구 확대 & 색변경
-* [Quiz13](https://github.com/walking-jw/Swift_Lecture/blob/main/AppQuiz12/AppQuiz12/ViewController.swift)  :  알람 맞추기 - 알람시간 동안 색 변하게 하기
+* [Quiz13](https://github.com/walking-jw/Swift_Lecture/blob/main/AppQuiz13/AppQuiz13/ViewController.swift)  :  알람 맞추기 - 알람시간 동안 색 변하게 하기
 * [Quiz14](https://github.com/walking-jw/Swift_Lecture/blob/main/AppQuiz14/AppQuiz14/ViewController.swift)  :  3초마다 이미지 변경 무한 반복
+
+<br><br>
+
+# Day 05
+
+>## Lecture
+
+<br>
+
+## Struct
+Class 랑 Struct 는 비슷한 개념이다. 다만 Struct 는 상속이 불가능하다. Swift 에서는 Struct를 권장하고, Performance 면에서eh Class에 앞선다. 구조체는 Data Type 을 정의할때 사용한다.
+
+### 1. Structure 생성 
+ ```swift
+   struct Sample{
+       // property
+       var sampleProperty: Int = 10         // 가변 프로퍼티
+       let fixedSampleProperty: Int = 100   // 불변 프로퍼티
+       static var typeProperty: Int = 1000  // 타입 프로퍼티
+
+       init() {
+       }
+
+       func instanceMethod() {
+           print("instance method")
+       }
+
+       static func typeMethod() {
+           print("type method")
+       }
+   }
+ ```
+만약 별도의 Method 를 만들지 않을 경우, `init()` `Constructor` 를 만들어줘야한다. 
+Java 에서는 Class 이름과 `Constructor` 의 이름을 일치시키는 것에 비해, swift 는 `init`으로 쓴다. 
+
+### 2. Structure 사용
+밑에서는 samp 라는 `instance`를 만들었다. 첫번째 `samp.sampleProperty`를 보면 자동완성 시, `static` 으로 만든 function은 나타나지 않는다. 
+처음 `samp` 로 불러왔을 경우, 초기 `Sample` 에서 가지고 있던 10 값을 가지고 있지만, 수정이 가능하다. 
+또한, 새롭게 불러왔을 경우, 수정되었던과는 별개로 처음 10의 값을 가지고 온다 `(Call By Value 방식)`
+
+
+ ```swift
+  var samp: Sample = Sample() 
+  print(samp.sampleProperty)    // 10 출력
+
+  samp.sampleProperty = 100
+  print(samp.sampleProperty)    // 100 출력
+
+  var samp1 = Sample()
+  print(samp1.sampleProperty)   // 10 출력
+ ```
+ > Struct 는 유저 ID 저장할때 많이 사용한다! ⭐️
+
+### 3. Type Property 사용
+`static` 이 붙은 것들은 `Sample.~~` 형태로 사용이 가능하다. 만약 없을 경우 `func` 을 호출해서 사용해야한다.
+ ```swift
+  Sample.typeMethod()
+  print(Sample.typeProperty)
+ ```
+
+### 4. 기타사항
+ * property 는 var 로 만들어 주는 것이 좋다.
+
+<br>
+
+
+
+## Extension ✨
+Swift 4.0 까지는 상속 형태를 많이 사용했지만, 5.0 이후부터는 Extension 을 많이 사용하게 되었다. 
+Extension 은 Constructor, Class, Protocol
+
+
+<br>
+
+## Delegate ✨
+swift 자체적으로 많은 delegate가 있다. 상황에 맞는 기능을 찾아서 쓰면 좋다.
+예를 들어 return 키를 눌렀을때 글자를 지워지게 하고싶다. 
+ 1. 기능을 만든다
+ ```swift
+    extension ViewController: UITextFieldDelegate{
+       func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+           lblResult.text = tfInput.text
+           return true
+       }
+    }
+ ```
+ 2. viewDidLoad 에 추가시켜준다.
+ ```swift
+    override func viewDidLoad() {
+          super.viewDidLoad()
+          tfInput.delegate = self
+    }
+ ```
+
+
+<br>
+
+## PickerView
+ ** 참고 링크 [PickerView]()
+ 1. 그림 세팅 : imageFileName(파일명)과 UI 이미지 파일 매칭해주기
+ 2. Extension : `UIPickerViewDataSource` PickerView 의 모양과 범위를 세팅해준다
+ 3. pickerImage.dataSource = self : `.dataSource` 와 `ViewController(self)` 연결해주기
+ 4. Extension - UIPickerViewDelegate : `Delegate`가 Android 의 `Adapter` 느낌이다. 
+ 5. Extension - didSelectRow : 선택된 Row 를 어떻게 할지 Action 을 설정한다.
+
+ > 3번 : PickerView 모양잡기 -> 4번 : PickerView Row 들 이름 넣어주기 -> 5번 : Action 넣어주기
+
+<br>
+
+## 
+
+<br><br>
+
+>## Tips
+
+### UI를 사용하는 것들은 기본적으로 `Optional`이다.
+
+<br><br>
+ 
+>## Quiz
