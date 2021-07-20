@@ -323,4 +323,133 @@ for 문에서 값을 역순으로 출력 및 활용하고 싶을 경우, `.rever
 * [Quiz07](https://github.com/walking-jw/Swift_Lecture/blob/main/AppQuiz07/AppQuiz07/ViewController.swift)  :  짝수인 경우에만 덧셈 계산하기
 * [Quiz08](https://github.com/walking-jw/Swift_Lecture/blob/main/AppQuiz08/AppQuiz08/ViewController.swift)  :  평균점수 등급 계산하기
 * [Quiz09](https://github.com/walking-jw/Swift_Lecture/blob/main/AppQuiz09/AppQuiz09/ViewController.swift)  :  평균점수, 총점, 평균대비 구하기(한페이지에)
+
+
+# Day 04 
+
+>## Lecture
+<br>
+
+## 함수
+Java 에서는 Method 라고 불리는 이 기능을 Swift 에서는 함수(function)라고 부른다. 
+함수의 기본 형태는 다음과 같은데, `-> Int` 부분은 return 하는 type이고, return 값이 없으면 `void`를 써주거나 생략한다.
+
+ ```swift
+  func interSum(a: Int, b: Int) -> Int{
+      return a + b
+  }
+ ```
  
+ >Argument & Parameter
+ >함수에서 쓸 때 Argument, 그 함수를 사용할때 Parameter 라고 구분하기는 하지만, 대부분 섞어서 사용한다!
+
+함수의 Argument를 설정해줄때 다양한 방법으로 보기쉽게 하거나 편하게 사용할 수 있다.
+
+ ```swift
+  func buildAddress(_ name: String, address:String, 도시 city:String, country: String? = "USA") -> String {
+      return """
+          \(name)
+          \(address)
+          \(city)
+          \(country ?? "")
+          """
+ ```
+ * `_ name:` : func에서는 name이라고 보이며 처음 함수를 불러와 사용할 때는 name이라고 보이지만, Parameter 값을 지정해주면 name 설명은 사라진다.
+ * `도시 city:` : 좀더 알기 쉽게 함수를 쓰기위해, Parameter를 넣어줄 때, 추가적인 설명을 줄 수 있다.
+ * `country: String? = "USA"` : nil값이 들어왔을 경우를 생각해, `?`를 주었고, 아무것도 작성하지 않으면 USA로 작성된다!
+ * `\(country ?? "")` : 만약 nil 값이 들어오면? ""로 대체한다라는 뜻
+
+위의 내용을 함수로 불러와 사용하고자 하면 아래와 같겠다. 보면 `country` 부분은 공백으로 생략하고 작성하지 않아도 된다(default값인 USA로 저장)
+
+ ```swift
+  buildAddress("원스", address: "주소", 도시: "하남", country: "한국")
+  buildAddress("재원", address: "주소", 도시: "하남")
+ ```
+
+
+<br>
+
+## 가변 매개변수
+ ```swift
+  func sayHello(me: String, friend: String...) -> String{
+      return "Hello \(friend)! I'm \(me)"
+  }
+
+  print(sayHello(me: "원!", friend: "친구1", "친구2", "친구3"))
+
+ ```
+ * `friend: String...` : Parameter로 여러개를 받을 수 있다. 출력은 ["친구1,", "친구2", "친구3"] 형태로 출력
+
+<br>
+
+## Overloading
+함수의 이름은 중복되도 Parameter의 갯수로 구분이 가능하다.
+
+
+<br>
+
+## Class & Struct
+#### 1. Class : 전통적인 OOP (Object Oriented Programming)
+ * 단일 상속
+ * property, constructor, method
+ * 참조 타입 선언
+
+#### 2. Struct
+ * 상속 불가
+ * property, constructor, method
+ * Value(값) 타입 선언 (Call by value)
+
+
+#### 3. Class 와 Struct 의 비교
+ * Class 는 한 곳에서 값이 변하면 전체가 다 변하지만, Struct는 각자 따로 값을 가진다.
+
+<br>
+
+## 상태변수 ( Set Status )
+ * 추가적인 공부 필요!
+<br>
+
+## switch object & ImageView
+switch object 의 기본적인 구조는 아래와 같다. `sender.isOn`을 기본으로 해서 switch 문과 엮어서 쓰면 좋다.
+ ```swift
+  @IBAction func switchImageOnOff(_ sender: UISwitch) {
+
+          switch  sender.isOn {
+          case true:
+              imgView.image = imgOn
+          default:
+              imgView.image = imgOff
+          }
+   }
+ ```
+  > Switch는 inspectors 에서 `state > On` 으로 기본 값을 줄 수 있다.
+
+
+
+
+<br>
+
+## DatePicker & Timer
+ * Timer에 대한 설명
+ * Selector 에 대한 설명
+ * NSDate
+
+
+ <br><br>
+
+>## Tips
+ 
+ ## DateFormat
+ *  "yyyy-MM-dd EEE a hh:mm:ss"  HH 는 24시간
+ 
+ <br>
+ 
+ ## 배경색 변경하기 (view.backgroundColor)
+ 
+ <br><br>
+ 
+>## Quiz
+
+* [Quiz12](https://github.com/walking-jw/Swift_Lecture/blob/main/AppQuiz12/AppQuiz12/ViewController.swift)  :   switch object  전구 확대 & 색변경
+* [Quiz13](https://github.com/walking-jw/Swift_Lecture/blob/main/AppQuiz12/AppQuiz12/ViewController.swift)  :  알람 맞추기 - 알람시간 동안 색 변하게 하기
+* [Quiz14](https://github.com/walking-jw/Swift_Lecture/blob/main/AppQuiz14/AppQuiz14/ViewController.swift)  :  3초마다 이미지 변경 무한 반복
