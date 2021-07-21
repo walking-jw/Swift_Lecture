@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var myActivityIndicator: UIActivityIndicatorView!
     
     // PickerView Settings
-    var webPageNames = ["https://www.google.com", "https://www.naver.com"]
+    var webPageNames = [("https://www.google.com", "구글"), ("https://www.naver.com", "네이버")]
     var maxArrayNum = 0
     let viewColumn = 1
     
@@ -63,12 +63,12 @@ extension ViewController: UIPickerViewDataSource{
 extension ViewController:UIPickerViewDelegate{
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return webPageNames[row]
+        return webPageNames[row].1
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // 웹페이지 연결
-        loadWebView(webPageNames[row])
+        loadWebView(webPageNames[row].0)
         
     }
 } // UIPickerViewDelegate
