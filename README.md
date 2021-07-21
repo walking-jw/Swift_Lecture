@@ -424,9 +424,6 @@ switch object 의 기본적인 구조는 아래와 같다. `sender.isOn`을 기�
  ```
   > Switch는 inspectors 에서 `state > On` 으로 기본 값을 줄 수 있다.
 
-
-
-
 <br>
 
 ## DatePicker & Timer
@@ -459,8 +456,6 @@ switch object 의 기본적인 구조는 아래와 같다. `sender.isOn`을 기�
 # Day 05
 
 >## Lecture
-
-<br>
 
 ## Struct
 Class 랑 Struct 는 비슷한 개념이다. 다만 Struct 는 상속이 불가능하다. Swift 에서는 Struct를 권장하고, Performance 면에서eh Class에 앞선다. 구조체는 Data Type 을 정의할때 사용한다.
@@ -518,11 +513,11 @@ Java 에서는 Class 이름과 `Constructor` 의 이름을 일치시키는 것�
 
 <br>
 
-
-
 ## Extension ✨
-Swift 4.0 까지는 상속 형태를 많이 사용했지만, 5.0 이후부터는 Extension 을 많이 사용하게 되었다. 
-Extension 은 Constructor, Class, Protocol
+Swift 4.0 까지는 상속 형태를 많이 사용했지만, 5.0 이후부터는 Extension 을 많이 사용하게 되었다.     
+Extension 은 Constructor, Class, Protocol 타입에 새로운 기능을 추가할 수 있다.    
+단, 기존에 존재하는 기능은 재정의 할 수 없다.    
+새롭게 원하는 기능을 만들 수 있으나, 다양한 기능이 swift에 내장되어 있다.
 
 
 <br>
@@ -551,7 +546,7 @@ swift 자체적으로 많은 delegate가 있다. 상황에 맞는 기능을 찾�
 <br>
 
 ## PickerView
- ** 참고 링크 [PickerView]()
+  📎 참고 링크 [PickerView](https://github.com/walking-jw/Swift_Lecture/blob/main/PickerView/PickerView/ViewController.swift)
  1. 그림 세팅 : imageFileName(파일명)과 UI 이미지 파일 매칭해주기
  2. Extension : `UIPickerViewDataSource` PickerView 의 모양과 범위를 세팅해준다
  3. pickerImage.dataSource = self : `.dataSource` 와 `ViewController(self)` 연결해주기
@@ -562,7 +557,27 @@ swift 자체적으로 많은 delegate가 있다. 상황에 맞는 기능을 찾�
 
 <br>
 
-## 
+## AlertActionSheet
+ 1. Controller 초기화
+ 2. AlertAction 설정
+ 3. Controller 와 Action 연결해주기
+ 4. 화면 띄우기
+ > `preferredStyle:` 만 `.alert`와 `.actionSheet` 구분해서 사용하면 좋다.
+
+ ```swift
+  let lampRemoveAlert  = UIAlertController(title: "램프 제거?", message: "램프를 제거 할까요?", preferredStyle: .alert)
+  let lampRemove = UIAlertAction(title: "네, 제거합니다.", style: .default, handler: {_ in
+      self.lampImage.image = self.imgRemove
+      self.isLampOn = false
+      })
+  lampRemoveAlert.addAction(lampRemove)
+  present(lampRemoveAlert, animated: true, completion: nil)
+ ```
+ * `UIAlertAction` 을 부를때, `title`의 길이에 따라 한줄로 네, 아니오 처럼 보이게 할 수도 있다.
+ * `UIAlertAction` 부분에서 `style:` 은 글씨의 색생 차이이다
+ * `handler` 부분은 `{ACTION in ~~ <#버튼 눌렀을때 기능#>}`
+ * `present > animated:` `false` 일 경우는, `Alert`가 더 빨리 뜬다
+
 
 <br><br>
 
@@ -570,6 +585,102 @@ swift 자체적으로 많은 delegate가 있다. 상황에 맞는 기능을 찾�
 
 ### UI를 사용하는 것들은 기본적으로 `Optional`이다.
 
+<br>
+
+### 랜덤 숫자 : Int.random( #range )
+ ```swift
+  func genNum() -> String{
+      return String(Int.random(in: 1..<10))
+  }
+ ```
+
 <br><br>
  
 >## Quiz
+* [Quiz15](https://github.com/walking-jw/Swift_Lecture/blob/main/AppQuiz15/AppQuiz15/ViewController.swift)  :   구구단 선택해서 출력하기 (PickerView)
+* [Quiz16](https://github.com/walking-jw/Swift_Lecture/blob/main/AppQuiz16/AppQuiz16/ViewController.swift)  :   알람을 맞추어 배경화면 색변경 & Alert 출력
+* [Quiz17]()  :  랜덤 숫자 구구단 퀴즈
+
+<br><br>
+
+# Day 06
+
+>## Lecture
+
+## Hybrid App Network Setting
+- Internet 을 사용하기 위해 다음과 같이 info.plist에 추가한다.
+
+ 1. Information property list 의 오른쪽 [+] 누른다.
+ 2. 목록에서 App Transport Security Setting을 선택하고 enter 를 친다.
+ 3. App Transport Security Setting 에서 왼쪽의 화살표를 아래로 향하게 하고, [+]을 누른다.
+ 4. Allow arbitrary loads 을 선택하고 Enter를 친다.
+ 5. Allow Arbitrary 의 오른쪽에 있는 No 값을 Yes로 변경하고 Enter를 친다.
+
+<br>
+
+## Web Site 연결하기
+1. import Webkit
+2. 사이트 이름 변수선언
+3. URL로 변환
+4. 연결 결과 받을 Request 필요
+5. WebView 와 연결
+ ```swift
+    // naver 사이트 연결
+    let tempSite = "https://www.naver.com"
+    // String 값을 URL 형태로 받아야한다!
+    let myUrl = URL(string: tempSite)
+    // myURL 은 Optional 이다. 연결은 했는데 결과를 받아야 하기 때문에 Request 필요
+    let myRequest = URLRequest(url: myUrl!)
+    // 받아온 결과를 어디에 띄울꺼야?
+    myWebView.load(myRequest)
+ ```
+
+## Indicator 연결해주기
+`Indicator` 를 띄우기 위해서는 `Extension` 을 써줘야한다.    
+왜냐하면 `ViewController` 가 `UI`만 상속받아왔기 때문에 `WK` 는 사용할 수가 없다.   
+`Indicator` 사용전, inspertor 에서 hide when stop 체크    
+`extension ViewController:WKNavigationDelegate` 으로 Extension 해준 후, 세팅해준다.
+
+<br>
+
+## Toolbar
+ ```swift
+    // ToolBar Buttons
+    @IBAction func btnStop(_ sender: UIBarButtonItem) {
+        myWebView.stopLoading()
+    }
+
+    @IBAction func btnReload(_ sender: UIBarButtonItem) {
+        myWebView.reload()
+    }
+
+    @IBAction func btnGoBack(_ sender: UIBarButtonItem) {
+        myWebView.goBack()
+    }
+
+    @IBAction func btnGoForward(_ sender: UIBarButtonItem) {
+        myWebView.goForward()
+    }
+ ```
+
+<br><br>
+
+>## Tips
+
+### 특정 글자로 시작하는지 확인 : .hasPrefix()
+특정 글자로 시작하는지 확인하는지 체크할때, .hasPrefix 를 통해서 Bool 값을 return 받을 수 있다.
+ ```swift
+     func checkUrl(_ url:String) -> String {
+         var strUrl = url
+         let flag = strUrl.hasPrefix("http://") // 앞 글자가 이렇게 시작하면
+         if !flag{                              // hasPrefix 는 Bool
+             strUrl += "http://"
+         }
+         return strUrl
+     }
+ ```
+ 
+<br><br>
+
+>## Quiz
+* [Quiz18](https://github.com/walking-jw/Swift_Lecture/blob/main/AppQuiz18/AppQuiz18/ViewController.swift)  :  PickerView & WebView
