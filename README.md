@@ -618,7 +618,7 @@ swift 자체적으로 많은 delegate가 있다. 상황에 맞는 기능을 찾�
 
 <br>
 
-## Web Site 연결하기
+## Web Site 연결하기 [Hybrid](https://github.com/walking-jw/Swift_Lecture/blob/main/Hybird/Hybird/ViewController.swift)
 1. import Webkit
 2. 사이트 이름 변수선언
 3. URL로 변환
@@ -663,6 +663,28 @@ swift 자체적으로 많은 delegate가 있다. 상황에 맞는 기능을 찾�
     }
  ```
 
+<br>
+
+## [Page Control]()
+Page Control 을 사용해서 currentPage 를 viewDidLoad 에서 초기값을 주면 위치를 기억한다.   
+이후에 그 위치에 맞춰 배열값을 움직일 수 있다.
+ ```swift
+  pageControl.numberOfPages = <# 배열.count >
+  pageControl.currentPage = 0                                 // 초기 위치
+  pageControl.pageIndicatorTintColor = UIColor.green          // indicator 색상
+  pageControl.currentPageIndicatorTintColor = UIColor.red     // 현재 위치 색상
+  
+  @IBAction func pageChange(_ sender: UIPageControl) {
+        // currentPage에서 초기 위치를 알기 때문에 맞춰서 움직인다.
+        imgView.image = UIImage(named: images[pageControl.currentPage])
+    }
+ ```
+
+<br>
+
+## SwipeGesture
+
+
 <br><br>
 
 >## Tips
@@ -680,7 +702,27 @@ swift 자체적으로 많은 delegate가 있다. 상황에 맞는 기능을 찾�
      }
  ```
  
+<br>
+
+### Quiz18 Tuple 로 사용해보기
+ ```swift
+  var webPageNames = [("https://www.google.com", "구글"), ("https://www.naver.com", "네이버")]
+  return webPageNames[row].1
+ ```
+ 
+ <br>
+
+### Alert 색상 및 모서리 둥글기
+ ```swift
+  alarmAlert.addAction(alarmAction)
+  alarmAlert.view.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+  alarmAlert.view.layer.cornerRadius = 10
+  present(alarmAlert, animated: true, completion: nil)
+ ```
+
 <br><br>
 
 >## Quiz
 * [Quiz18](https://github.com/walking-jw/Swift_Lecture/blob/main/AppQuiz18/AppQuiz18/ViewController.swift)  :  PickerView & WebView
+* [Quiz19](https://github.com/walking-jw/Swift_Lecture/blob/main/AppQuiz19/AppQuiz19/ViewController.swift)  :  PageControl & ImageView
+* [Quiz20](https://github.com/walking-jw/Swift_Lecture/blob/main/AppQuiz20/AppQuiz20/ViewController.swift)  :  PageControl & WebView
