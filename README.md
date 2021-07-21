@@ -607,4 +607,80 @@ swift 자체적으로 많은 delegate가 있다. 상황에 맞는 기능을 찾�
 
 >## Lecture
 
+## Hybrid App Network Setting
+- Internet 을 사용하기 위해 다음과 같이 info.plist에 추가한다.
+
+ 1. Information property list 의 오른쪽 [+] 누른다.
+ 2. 목록에서 App Transport Security Setting을 선택하고 enter 를 친다.
+ 3. App Transport Security Setting 에서 왼쪽의 화살표를 아래로 향하게 하고, [+]을 누른다.
+ 4. Allow arbitrary loads 을 선택하고 Enter를 친다.
+ 5. Allow Arbitrary 의 오른쪽에 있는 No 값을 Yes로 변경하고 Enter를 친다.
+
 <br>
+
+## Web Site 연결하기
+1. import Webkit
+2. 사이트 이름 변수선언
+3. URL로 변환
+4. 연결 결과 받을 Request 필요
+5. WebView 와 연결
+ ```swift
+    // naver 사이트 연결
+    let tempSite = "https://www.naver.com"
+    // String 값을 URL 형태로 받아야한다!
+    let myUrl = URL(string: tempSite)
+    // myURL 은 Optional 이다. 연결은 했는데 결과를 받아야 하기 때문에 Request 필요
+    let myRequest = URLRequest(url: myUrl!)
+    // 받아온 결과를 어디에 띄울꺼야?
+    myWebView.load(myRequest)
+ ```
+
+## Indicator 연결해주기
+`Indicator` 를 띄우기 위해서는 `Extension` 을 써줘야한다.    
+왜냐하면 `ViewController` 가 `UI`만 상속받아왔기 때문에 `WK` 는 사용할 수가 없다.   
+`Indicator` 사용전, inspertor 에서 hide when stop 체크    
+`extension ViewController:WKNavigationDelegate` 으로 Extension 해준 후, 세팅해준다.
+
+<br>
+
+## Toolbar
+ ```swift
+    // ToolBar Buttons
+    @IBAction func btnStop(_ sender: UIBarButtonItem) {
+        myWebView.stopLoading()
+    }
+
+    @IBAction func btnReload(_ sender: UIBarButtonItem) {
+        myWebView.reload()
+    }
+
+    @IBAction func btnGoBack(_ sender: UIBarButtonItem) {
+        myWebView.goBack()
+    }
+
+    @IBAction func btnGoForward(_ sender: UIBarButtonItem) {
+        myWebView.goForward()
+    }
+ ```
+
+<br><br>
+
+>## Tips
+
+### 특정 글자로 시작하는지 확인 : .hasPrefix()
+특정 글자로 시작하는지 확인하는지 체크할때, .hasPrefix 를 통해서 Bool 값을 return 받을 수 있다.
+ ```swift
+     func checkUrl(_ url:String) -> String {
+         var strUrl = url
+         let flag = strUrl.hasPrefix("http://") // 앞 글자가 이렇게 시작하면
+         if !flag{                              // hasPrefix 는 Bool
+             strUrl += "http://"
+         }
+         return strUrl
+     }
+ ```
+ 
+<br><br>
+
+>## Quiz
+* [Quiz18](https://github.com/walking-jw/Swift_Lecture/blob/main/AppQuiz18/AppQuiz18/ViewController.swift)  :  PickerView & WebView
