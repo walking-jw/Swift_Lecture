@@ -770,3 +770,101 @@ main.storyboard 열고 복사 -> 붙여넣기
 
    }
  ```
+ 
+ <br>
+ 
+ ## Navigation Control
+ 화면 이동이 이루어 지는 것은 무조건 Navigation 을 거쳐야한다.    
+ Navigation 은 이동 후 위쪽에 < 돌아가기 이런 것이 있는 것이다.   
+ 1. Tab Bar 와 같이 Embed In 에서 선택
+
+
+Navigation 에서 새로운 ViewController 에 소스를 넣을때 , Swift File 이 아닌 옆에있는 Cocoa 이다.
+그리고 UIViewController 로 지정해주고 만든다
+inspertor 에서 Custom Class 연결해준다.
+
+## func prepare ( segue 통해서 값 넘기기 )
+
+#### 받는 쪽 (EditViewController)
+1. 값을 받는 쪽에 변수를 지정해준다!  ( Target Controller )
+ ```swift
+  var textWayValue: String = ""
+  var textMessage: String = ""
+ ```
+
+2. 주는 쪽에서 prepare 함수를 통해 받는 쪽 전역변수에 값을 넣어준다.  ( Main Controller )
+```swift
+// 어디서 형성된 segue 인지 알 수 있다.
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
+        let editViewController = segue.destination as! EditViewController
+        
+        // EditViewController에 지정해놓은 var 변수에 값을 넘겨주기
+        if segue.identifier == "editButton"{
+            editViewController.textWayValue = "Segue : Use Button!"
+        }else{
+            editViewController.textWayValue = "Segue : USer Bar Button!"
+        }
+        
+        // Main Controller에 있는 메세지 전달하기
+        editViewController.textMessage = tfMessage.text!
+        
+    }
+```
+
+3. 받는 쪽에서 전역변수를 이용해서 사용하면 된다. ( Target Controller )
+ ```swift
+   lblWay.text = textWayValue
+   tfMessage.text = textMessage
+ ```
+ 
+## Protocol ( 다시 값 되돌려주기 )
+1. New File > Swift File ( File 명으로 protocol <# 파일명 > {  } )
+ ```swift
+ protocol EditDelegate {
+    // controller: 에서 주는 message: 다.
+    func didMessageEditDone(_ controller: EditViewController, message: String)
+}
+ ```
+2. 넘겨주는 쪽에서 전역변수 만들어주기 ( Target Controller )
+ ```swift
+  // protocol 용
+  var delegate: EditDelegate?
+ ```
+3. protocol 에서 만든 함수 실행시키고 현재화면 pop 으로 없애기 ( Target Controller )
+```swift
+ @IBAction func btnDone(_ sender: UIButton) {
+   if delegate != nil {
+     delegate?.didMessageEditDone(self, message: tfMessage.text!)
+   }
+   navigationController?.popViewController(animated: true)
+ }
+```
+4. 받는 쪽에서 extension 으로 protocol 사용할 수 있게 하기 ( Main Controller )
+ ```swift
+  extension ViewController: EditDelegate{
+      func didMessageEditDone(_ controller: EditViewController, message: String) {
+          tfMessage.text = message
+      }
+  }
+ ```
+5. prepare 에 중요한 '권한주기' ( Main Controller )
+ ```swift
+   editViewController.delegate = self // <<<<<<< Extentsion 만들었으면 꼭!! 이렇게 적용시켜주기      
+ ```
+
+<br>
+
+## Table Control
+Android 에서의 ListView 와 유사하다.
+1. Table View Controller (tableView가 포함된 Controller)
+2. Navigation (is Initial 등록) , 2개의 ViewController 만듦
+3. listView는 Table View cell 과 ViewController 연결 ( segue id : sgDetail )
+4. ViewController 들 그림 그리기 (Main 의 table id -> myCell
+5. TableViewController & 2개의 cocoa UIViewController 만들기
+6. 각 화면과 cocoa 파일 연결
+7. tableView Outlet 주의!!!
+8. class 위에 변수 선언
+9. numberOfSections = 1 , tableView return items.count
+
+Android 에서의 ListView 와 유사하다.
