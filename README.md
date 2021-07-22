@@ -726,3 +726,47 @@ Page Control 을 사용해서 currentPage 를 viewDidLoad 에서 초기값을 �
 * [Quiz18](https://github.com/walking-jw/Swift_Lecture/blob/main/AppQuiz18/AppQuiz18/ViewController.swift)  :  PickerView & WebView
 * [Quiz19](https://github.com/walking-jw/Swift_Lecture/blob/main/AppQuiz19/AppQuiz19/ViewController.swift)  :  PageControl & ImageView
 * [Quiz20](https://github.com/walking-jw/Swift_Lecture/blob/main/AppQuiz20/AppQuiz20/ViewController.swift)  :  PageControl & WebView
+
+<br><br>
+
+# Day 07
+
+>## Lecture
+
+## Pinch Gesture
+
+<br>
+
+## Tab Bar Control
+
+Main.storyboard > ViewController 클릭 > Editor > Embed In > Tab bar Controller
+> 프로젝트를 진행할때 storyboard 를 (화면이동) 세팅해두고 시작을 해야한다. 
+처음 시작하는 화면(Tab Bar Controller부터 시작해야함)에 is Initial View Controller 가 찍혀있는지 확인해야한다.
+
+#### Tab bar icon 변경
+item(tab bar누르고) > System Item > 변경
+
+#### 새로운 화면 만들때 
+cmd shift L 로 view controller 만들 수 있음
+
+#### 기존 파일 가져올때
+main.storyboard 열고 복사 -> 붙여넣기
+
+#### 소스 코드 가져오기
+ 1. 똑같은 ViewController 이면 안되기때문에 이름 바꿔서 TabBar 폴더에 복붙
+ 2. 그리고 Drag & Drop
+ 3. 가져온 파일 소스에서 ViewController 로 되어있는 이름 바꿔주기
+ 4. inspector 에서 네번째 class 연결해주기
+ 5. Tab Bar연결해주기 : Tab Bar Controller 오른쪽 마우스 -> 연결할 ViewController -> relation Sague
+ 6. Tab Bar Icon 변경해주기
+
+<br>
+
+## ViewController 에서 다른 화면으로 넘어가게 할 때 ( Tab Bar 사용시 )
+ ```swift
+  @IBAction func btnGoImageView(_ sender: UIButton) {
+         // Tab Bar 의 1번 으로 가라! (순서 배열과 같음)
+         tabBarController?.selectedIndex  = 1
+
+   }
+ ```
