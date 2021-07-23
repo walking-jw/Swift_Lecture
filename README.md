@@ -618,7 +618,7 @@ swift 자체적으로 많은 delegate가 있다. 상황에 맞는 기능을 찾�
 
 <br>
 
-## Web Site 연결하기
+## Web Site 연결하기 [Hybrid](https://github.com/walking-jw/Swift_Lecture/blob/main/Hybird/Hybird/ViewController.swift)
 1. import Webkit
 2. 사이트 이름 변수선언
 3. URL로 변환
@@ -663,6 +663,28 @@ swift 자체적으로 많은 delegate가 있다. 상황에 맞는 기능을 찾�
     }
  ```
 
+<br>
+
+## [Page Control]()
+Page Control 을 사용해서 currentPage 를 viewDidLoad 에서 초기값을 주면 위치를 기억한다.   
+이후에 그 위치에 맞춰 배열값을 움직일 수 있다.
+ ```swift
+  pageControl.numberOfPages = <# 배열.count >
+  pageControl.currentPage = 0                                 // 초기 위치
+  pageControl.pageIndicatorTintColor = UIColor.green          // indicator 색상
+  pageControl.currentPageIndicatorTintColor = UIColor.red     // 현재 위치 색상
+  
+  @IBAction func pageChange(_ sender: UIPageControl) {
+        // currentPage에서 초기 위치를 알기 때문에 맞춰서 움직인다.
+        imgView.image = UIImage(named: images[pageControl.currentPage])
+    }
+ ```
+
+<br>
+
+## SwipeGesture
+
+
 <br><br>
 
 >## Tips
@@ -680,7 +702,169 @@ swift 자체적으로 많은 delegate가 있다. 상황에 맞는 기능을 찾�
      }
  ```
  
+<br>
+
+### Quiz18 Tuple 로 사용해보기
+ ```swift
+  var webPageNames = [("https://www.google.com", "구글"), ("https://www.naver.com", "네이버")]
+  return webPageNames[row].1
+ ```
+ 
+ <br>
+
+### Alert 색상 및 모서리 둥글기
+ ```swift
+  alarmAlert.addAction(alarmAction)
+  alarmAlert.view.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+  alarmAlert.view.layer.cornerRadius = 10
+  present(alarmAlert, animated: true, completion: nil)
+ ```
+
 <br><br>
 
 >## Quiz
 * [Quiz18](https://github.com/walking-jw/Swift_Lecture/blob/main/AppQuiz18/AppQuiz18/ViewController.swift)  :  PickerView & WebView
+* [Quiz19](https://github.com/walking-jw/Swift_Lecture/blob/main/AppQuiz19/AppQuiz19/ViewController.swift)  :  PageControl & ImageView
+* [Quiz20](https://github.com/walking-jw/Swift_Lecture/blob/main/AppQuiz20/AppQuiz20/ViewController.swift)  :  PageControl & WebView
+
+<br><br>
+
+# Day 07
+
+>## Lecture
+
+## Pinch Gesture
+
+<br>
+
+## Tab Bar Control
+
+Main.storyboard > ViewController 클릭 > Editor > Embed In > Tab bar Controller
+> 프로젝트를 진행할때 storyboard 를 (화면이동) 세팅해두고 시작을 해야한다. 
+처음 시작하는 화면(Tab Bar Controller부터 시작해야함)에 is Initial View Controller 가 찍혀있는지 확인해야한다.
+
+#### Tab bar icon 변경
+item(tab bar누르고) > System Item > 변경
+
+#### 새로운 화면 만들때 
+cmd shift L 로 view controller 만들 수 있음
+
+#### 기존 파일 가져올때
+main.storyboard 열고 복사 -> 붙여넣기
+
+#### 소스 코드 가져오기
+ 1. 똑같은 ViewController 이면 안되기때문에 이름 바꿔서 TabBar 폴더에 복붙
+ 2. 그리고 Drag & Drop
+ 3. 가져온 파일 소스에서 ViewController 로 되어있는 이름 바꿔주기
+ 4. inspector 에서 네번째 class 연결해주기
+ 5. Tab Bar연결해주기 : Tab Bar Controller 오른쪽 마우스 -> 연결할 ViewController -> relation Sague
+ 6. Tab Bar Icon 변경해주기
+
+<br>
+
+## ViewController 에서 다른 화면으로 넘어가게 할 때 ( Tab Bar 사용시 )
+ ```swift
+  @IBAction func btnGoImageView(_ sender: UIButton) {
+         // Tab Bar 의 1번 으로 가라! (순서 배열과 같음)
+         tabBarController?.selectedIndex  = 1
+
+   }
+ ```
+ 
+ <br>
+ 
+ ## Navigation Control
+ 화면 이동이 이루어 지는 것은 무조건 Navigation 을 거쳐야한다.    
+ Navigation 은 이동 후 위쪽에 < 돌아가기 이런 것이 있는 것이다.   
+ 1. Tab Bar 와 같이 Embed In 에서 선택
+
+
+Navigation 에서 새로운 ViewController 에 소스를 넣을때 , Swift File 이 아닌 옆에있는 Cocoa 이다.
+그리고 UIViewController 로 지정해주고 만든다
+inspertor 에서 Custom Class 연결해준다.
+
+## func prepare ( segue 통해서 값 넘기기 )
+
+#### 받는 쪽 (EditViewController)
+1. 값을 받는 쪽에 변수를 지정해준다!  ( Target Controller )
+ ```swift
+  var textWayValue: String = ""
+  var textMessage: String = ""
+ ```
+
+2. 주는 쪽에서 prepare 함수를 통해 받는 쪽 전역변수에 값을 넣어준다.  ( Main Controller )
+```swift
+// 어디서 형성된 segue 인지 알 수 있다.
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
+        let editViewController = segue.destination as! EditViewController
+        
+        // EditViewController에 지정해놓은 var 변수에 값을 넘겨주기
+        if segue.identifier == "editButton"{
+            editViewController.textWayValue = "Segue : Use Button!"
+        }else{
+            editViewController.textWayValue = "Segue : USer Bar Button!"
+        }
+        
+        // Main Controller에 있는 메세지 전달하기
+        editViewController.textMessage = tfMessage.text!
+        
+    }
+```
+
+3. 받는 쪽에서 전역변수를 이용해서 사용하면 된다. ( Target Controller )
+ ```swift
+   lblWay.text = textWayValue
+   tfMessage.text = textMessage
+ ```
+ 
+## Protocol ( 다시 값 되돌려주기 )
+1. New File > Swift File ( File 명으로 protocol <# 파일명 > {  } )
+ ```swift
+ protocol EditDelegate {
+    // controller: 에서 주는 message: 다.
+    func didMessageEditDone(_ controller: EditViewController, message: String)
+}
+ ```
+2. 넘겨주는 쪽에서 전역변수 만들어주기 ( Target Controller )
+ ```swift
+  // protocol 용
+  var delegate: EditDelegate?
+ ```
+3. protocol 에서 만든 함수 실행시키고 현재화면 pop 으로 없애기 ( Target Controller )
+```swift
+ @IBAction func btnDone(_ sender: UIButton) {
+   if delegate != nil {
+     delegate?.didMessageEditDone(self, message: tfMessage.text!)
+   }
+   navigationController?.popViewController(animated: true)
+ }
+```
+4. 받는 쪽에서 extension 으로 protocol 사용할 수 있게 하기 ( Main Controller )
+ ```swift
+  extension ViewController: EditDelegate{
+      func didMessageEditDone(_ controller: EditViewController, message: String) {
+          tfMessage.text = message
+      }
+  }
+ ```
+5. prepare 에 중요한 '권한주기' ( Main Controller )
+ ```swift
+   editViewController.delegate = self // <<<<<<< Extentsion 만들었으면 꼭!! 이렇게 적용시켜주기      
+ ```
+
+<br>
+
+## Table Control
+Android 에서의 ListView 와 유사하다.
+1. Table View Controller (tableView가 포함된 Controller)
+2. Navigation (is Initial 등록) , 2개의 ViewController 만듦
+3. listView는 Table View cell 과 ViewController 연결 ( segue id : sgDetail )
+4. ViewController 들 그림 그리기 (Main 의 table id -> myCell
+5. TableViewController & 2개의 cocoa UIViewController 만들기
+6. 각 화면과 cocoa 파일 연결
+7. tableView Outlet 주의!!!
+8. class 위에 변수 선언
+9. numberOfSections = 1 , tableView return items.count
+
+Android 에서의 ListView 와 유사하다.
