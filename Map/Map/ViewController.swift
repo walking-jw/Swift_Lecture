@@ -26,7 +26,7 @@ class ViewController: UIViewController {
         myLoc.delegate = self
         myLoc.requestWhenInUseAuthorization()  // 승인 허용 문구 받아서 처리
         myLoc.startUpdatingLocation()          // GPS 좌표 받기 시작
-        myMap.showsUserLocation = true
+        myMap.showsUserLocation = true         // MapView Outlet
     } // viewDidLoad
 
     // parameter : 좌표값

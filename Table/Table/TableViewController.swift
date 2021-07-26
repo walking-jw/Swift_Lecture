@@ -69,27 +69,23 @@ class TableViewController: UITableViewController {
         return cell
     }
 
-    /*
+    
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
+    
 
   
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            print("Delete")  // 왼쪽으로 스와이프 하면 del 나옴!
             items.remove(at: indexPath.row)            // 선택한 'row'의 데이터 삭제
             itemsImageFile.remove(at: indexPath.row)   //
-            
-            // 여기서 index 소문자로 바꿈..
-            tableView.deleteRows(at: [indexPath], with: .fade)  // Data를 지웠으면 화면에서도 지워주기
-            
+
             // Delete the row from the data source
-            // tableView.deleteRows(at: [indexPath], with: .fade)
+             tableView.deleteRows(at: [indexPath], with: .fade)  // Data를 지웠으면 화면에서도 지워주기
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
