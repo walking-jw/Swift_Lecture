@@ -1,30 +1,37 @@
 //
 //  TableViewController.swift
-//  ServerJson_01
+//  ServerJson_02
 //
-//  Created by 박재원 on 2021/07/27.
+//  Created by 박재원 on 2021/07/28.
 //
 
 import UIKit
 
 class TableViewController: UITableViewController {
 
+    // App을 종료하지 않고 나가도 사라지면 weak
+    // App을 종료해야만 사라지는게 strong
     @IBOutlet var listTableView: UITableView!
+    // NSArray
     var feedItem:NSArray = NSArray()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // instance 만들기 'new'만 없을뿐!
         let jsonModel = JsonModel()
         jsonModel.delegate = self
         jsonModel.downloadItems()
+        
+        // Cell의 크기를 정한다.
+        listTableView.rowHeight = 125
+        
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
+    } // viewDidLoad
 
     // MARK: - Table view data source
 
@@ -35,19 +42,24 @@ class TableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
+        // feedItem = NSArray 형태로 DB에서 받아오는 값
         return feedItem.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! TableViewCell
+        // **** as! <# 만들어둔 Custom Cell #>
 
         // Configure the cell...
-        // DBModel 형태라고 정의해줘야 밑에서 하나씩 꺼내서 쓸 수가 있다!!
         let item: DBModel = feedItem[indexPath.row] as! DBModel
         
-        cell.textLabel?.text = "성명 : \(item.sname!)"
-        cell.detailTextLabel?.text = "학번 : \(item.scode!)"
+        // as! <# 만들어둔 Custom Cell #> 에 있는 Object 이름으로 쓰기
+        // upwrapping !
+        cell.lblCode.text = "학번 : \(item.scode!)"
+        cell.lblName.text = "이름 : \(item.sname!)"
+        cell.lblDept.text = "전공 : \(item.sdept!)"
+        cell.lblPhone.text = "연락처 : \(item.sphone!)"
         
         return cell
     }
@@ -98,8 +110,9 @@ class TableViewController: UITableViewController {
     }
     */
 
-}
+} // TableViewController
 
+/// Extension
 extension TableViewController: JsonModelProtocol{
     func itemDownloaded(items: NSArray) {
         feedItem = items
@@ -109,4 +122,3 @@ extension TableViewController: JsonModelProtocol{
     }
     
 }
-

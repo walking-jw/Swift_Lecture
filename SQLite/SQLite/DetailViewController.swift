@@ -155,3 +155,57 @@ class DetailViewController: UIViewController {
     
     
 } // DetailViewController
+
+
+
+
+func insertValues() {
+
+    // Statement
+    var stmt: OpaquePointer?
+    
+    // 한글 깨짐 방지
+    let SQLITE_TRANSIENT = unsafeBitCast(-1, to: sqlite3_destructor_type.self)
+        
+    // INSERT 할 DATA 값
+    let <#Column1#> = <#TextField1#>.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+    let <#Column2#> = <#TextField2#>.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+    
+    // Query
+    let queryString = "INSERT INTO <#TableName#>(<#Column01#>, <#Column02#>) VALUES (?,?)"
+        
+    // Prepare
+    if sqlite3_prepare(db, queryString, -1, &stmt, nil) != SQLITE_OK{
+        let errmsg = String(cString: sqlite3_errmsg(db)!)
+        print("error preparing insert : \(errmsg)")
+        return
+    }
+        
+    // 1번째 VALUES(?) 처리
+    if sqlite3_bind_text(stmt, 1, <#Column1#>, -1, SQLITE_TRANSIENT) != SQLITE_OK{
+        let errmsg = String(cString: sqlite3_errmsg(db)!)
+        print("error binding <#Column1#> : \(errmsg)")
+        return
+    }
+    // 2번째 VALUES(?) 처리
+    if sqlite3_bind_text(stmt, 2, <#Column2#>, -1, SQLITE_TRANSIENT) != SQLITE_OK{
+        let errmsg = String(cString: sqlite3_errmsg(db)!)
+        print("error binding <#Column2#> : \(errmsg)")
+        return
+    }
+    // 실행시키기
+    if sqlite3_step(stmt) != SQLITE_DONE{
+        let errmsg = String(cString: sqlite3_errmsg(db)!)
+        print("failure inserting <#TableName#> : \(errmsg)")
+        return
+    }
+        
+    // Result Alert
+    let resultAlert = UIAlertController(title: "결과", message: "입력 되었습니다.", preferredStyle: .alert)
+    let okAction = UIAlertAction(title: "네, 알겠습니다.", style: .default, handler: {_ in
+        self.navigationController?.popViewController(animated: true)
+    })
+    resultAlert.addAction(okAction)
+    present(resultAlert, animated: true, completion: nil)
+    
+} // insertValues
