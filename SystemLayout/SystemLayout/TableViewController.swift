@@ -1,29 +1,19 @@
 //
 //  TableViewController.swift
-//  ServerJson_02
+//  SystemLayout
 //
-//  Created by 박재원 on 2021/07/28.
+//  Created by 박재원 on 2021/07/29.
 //
 
 import UIKit
 
 class TableViewController: UITableViewController {
 
-    // App을 종료하지 않고 나가도 사라지면 weak
-    // App을 종료해야만 사라지는게 strong
-    @IBOutlet var listTableView: UITableView!
-    // NSArray
-    var feedItem:NSArray = NSArray()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let jsonModel = JsonModel()
-        jsonModel.delegate = self
-        jsonModel.downloadItems()
-        
-        // Cell의 크기를 정한다.
-        listTableView.rowHeight = 125
+        // title 을 로그인한 userID 로 만들기  ( static 으로 사용함 )
+        self.title = Share.userID
         
         
         // Uncomment the following line to preserve selection between presentations
@@ -31,42 +21,29 @@ class TableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    } // viewDidLoad
+    }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        // feedItem = NSArray 형태로 DB에서 받아오는 값
-        return feedItem.count
+        return 0
     }
 
-    
+    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! TableViewCell
-        // **** as! <# 만들어둔 Custom Cell #>
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
 
         // Configure the cell...
-        let item: DBModel = feedItem[indexPath.row] as! DBModel
-        
-        // image View input
-        let url = URL(string: "http://192.168.35.219:8080/ios/swift.png")
-        let data = try? Data(contentsOf: url!)
-        cell.imgView?.image = UIImage(data: data!)
-        
-        // as! <# 만들어둔 Custom Cell #> 에 있는 Object 이름으로 쓰기
-        // upwrapping !
-        cell.lblName.text = "이름 : \(item.sname!)"
-        cell.lblPhone.text = "연락처 : \(item.sphone!)"
-        
+
         return cell
     }
-    
+    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -113,15 +90,4 @@ class TableViewController: UITableViewController {
     }
     */
 
-} // TableViewController
-
-/// Extension
-extension TableViewController: JsonModelProtocol{
-    func itemDownloaded(items: NSArray) {
-        feedItem = items
-        // * * * Data 받아온 시점 * * *
-        
-        self.listTableView.reloadData()
-    }
-    
 }

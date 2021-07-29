@@ -82,7 +82,8 @@ extension ViewController:UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         // 3등분 : 한 줄에 셀 3개 들어가게! (옆 간격이 1이라 1을 빼준 것이다)
         let width = collectionView.frame.width / 3 - 1
-        let size = CGSize(width: width, height: width)  // 정사각형
+        let height = collectionView.frame.height - 1
+        let size = CGSize(width: width, height: height)  // 정사각형
         
         return size
     }
